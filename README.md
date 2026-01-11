@@ -218,45 +218,55 @@ By completing this project, you will gain:
 
 
 
-
-Spring Boot Package Structure -
+📂 Project Structure
 com.fintech
+│
 ├── FinTechApplication.java
+│
 ├── config
-│ ├── SecurityConfig.java
-│ ├── JwtConfig.java
-│ └── SwaggerConfig.java
+│   ├── SecurityConfig.java
+│   ├── JwtConfig.java
+│   └── SwaggerConfig.java
+│
 ├── controller
-│ ├── AuthController.java
-│ ├── AccountController.java
-│ ├── TradingController.java
-│ └── AdminController.java
+│   ├── AuthController.java
+│   ├── AccountController.java
+│   ├── TradingController.java
+│   └── AdminController.java
+│
 ├── service
-│ ├── AuthService.java
-│ ├── AccountService.java
-│ ├── TradingService.java
-│ └── PortfolioService.java
+│   ├── AuthService.java
+│   ├── AccountService.java
+│   ├── TradingService.java
+│   └── PortfolioService.java
+│
 ├── repository
-│ ├── UserRepository.java
-│ ├── AccountRepository.java
-│ ├── OrderRepository.java
-│ └── TradeRepository.java
+│   ├── UserRepository.java
+│   ├── AccountRepository.java
+│   ├── OrderRepository.java
+│   └── TradeRepository.java
+│
 ├── model
-│ ├── User.java
-│ ├── Account.java
-│ ├── Order.java
-│ ├── Trade.java
-│ └── Transaction.java
+│   ├── User.java
+│   ├── Account.java
+│   ├── Order.java
+│   ├── Trade.java
+│   └── Transaction.java
+│
 ├── dto
-│ ├── LoginRequest.java
-│ ├── TransferRequest.java
-│ └── OrderRequest.java
+│   ├── LoginRequest.java
+│   ├── TransferRequest.java
+│   └── OrderRequest.java
+│
 ├── exception
-│ ├── GlobalExceptionHandler.java
-│ └── InsufficientBalanceException.java
+│   ├── GlobalExceptionHandler.java
+│   └── InsufficientBalanceException.java
+│
 └── util
-├── JwtUtil.java
-└── ThreadUtils.java
+    ├── JwtUtil.java
+    └── ThreadUtils.java
+
+
 
 
 🗄 Database Schema Design
