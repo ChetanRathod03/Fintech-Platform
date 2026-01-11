@@ -269,6 +269,7 @@ com.fintech
 
 
 
+
 🗄 Database Schema Design
 👤 User Table
 | Column   | Data Type | Constraints      | Description            |
