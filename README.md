@@ -180,20 +180,42 @@ By completing this project, you will gain:
 
 
 🏗 System Architecture (Logical View)
-[ React Frontend ]
-        |
-        v
-[ Spring Boot REST APIs ]
-        |
-        v
-[ Service Layer ]
-(Banking | Trading | Security)
-        |
-        v
-[ JPA / Hibernate ]
-        |
-        v
-[ PostgreSQL / MySQL ]
+┌───────────────────────────┐
+│      React Frontend       │
+│  (UI / REST Consumption)  │
+└─────────────┬─────────────┘
+              │ HTTPS (JSON)
+              ▼
+┌───────────────────────────┐
+│   Spring Boot REST APIs   │
+│  (Controllers + Filters) │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌─────────────────────────────────────────┐
+│              Service Layer               │
+│ ┌──────────────┐ ┌───────────────────┐ │
+│ │ Banking Svc  │ │  Trading Svc       │ │
+│ │ (Transfers) │ │ (Order Matching)   │ │
+│ └──────────────┘ └───────────────────┘ │
+│              ┌───────────────────┐     │
+│              │  Security Svc     │     │
+│              │ (JWT + RBAC)      │     │
+│              └───────────────────┘     │
+└─────────────┬───────────────────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│      JPA / Hibernate      │
+│ (ORM + Tx Management)    │
+└─────────────┬─────────────┘
+              │
+              ▼
+┌───────────────────────────┐
+│  PostgreSQL / MySQL       │
+│ (ACID-Compliant Storage) │
+└───────────────────────────┘
+
 
 
 
@@ -291,43 +313,64 @@ com.fintech
 High-Frequency Trading systems demand ultra-low latency, strong consistency, concurrency safety, and auditability. Your schema supports these requirements at a core architectural level.
 
 📊 ER Diagram (Textual Representation)
-USER
- ├── id (PK)
- ├── name
- ├── email
- └── role
-   │
-   │ 1-to-many
-   ↓
-ACCOUNT
- ├── id (PK)
- ├── balance
- └── user_id (FK)
-   │
-   │ 1-to-many
-   ↓
-TRANSACTION
- ├── id (PK)
- ├── from_account
- ├── to_account
- ├── amount
- └── status
+┌─────────────────────────┐
+│          USER           │
+├─────────────────────────┤
+│ PK  id                  │
+│     name                │
+│     email               │
+│     role                │
+└─────────────┬───────────┘
+              │ 1-to-many
+              ▼
+┌─────────────────────────┐
+│        ACCOUNT           │
+├─────────────────────────┤
+│ PK  id                  │
+│     balance             │
+│ FK  user_id             │
+└─────────────┬───────────┘
+              │ 1-to-many
+              ▼
+┌─────────────────────────┐
+│      TRANSACTION        │
+├─────────────────────────┤
+│ PK  id                  │
+│ FK  from_account        │
+│ FK  to_account          │
+│     amount              │
+│     status              │
+└─────────────────────────┘
 
-USER
- │
- │ 1-to-many
- ↓
-ORDER
- ├── id (PK)
- ├── order_type
- ├── price
- ├── quantity
- └── status
-   │
-   │ many-to-many (via trades)
-   ↓
-TRADE
- ├── id (PK)
- ├── buy_order_id (FK)
- ├── sell_order_id (FK)
- └── executed_price
+
+┌─────────────────────────┐
+│          USER           │
+├─────────────────────────┤
+│ PK  id                  │
+│     name                │
+│     email               │
+│     role                │
+└─────────────┬───────────┘
+              │ 1-to-many
+              ▼
+┌─────────────────────────┐
+│          ORDER          │
+├─────────────────────────┤
+│ PK  id                  │
+│     order_type          │
+│     price               │
+│     quantity            │
+│     status              │
+│ FK  user_id             │
+└─────────────┬───────────┘
+              │ many-to-many
+              │ (via TRADE)
+              ▼
+┌─────────────────────────┐
+│          TRADE          │
+├─────────────────────────┤
+│ PK  id                  │
+│ FK  buy_order_id        │
+│ FK  sell_order_id       │
+│     executed_price      │
+└─────────────────────────┘
